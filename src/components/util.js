@@ -1,3 +1,5 @@
+import { qrcode, modes, ecLevel } from 'qrcode.es'
+
 const POSITIONS = [
   'top left',
   'top center',
@@ -21,7 +23,7 @@ const CacheServer = {
  * @param {string} caller name
  */
 function setQRstyle (dst, src, caller) {
-  dst['qrpopup'] = src.qrpopup ? src.qrpopup : true
+  dst['qrpopup'] = src.qrpopup ? src.qrpopup : false
   dst['qrsize'] = src.qrsize > 0 ? src.qrsize : 128
   dst['qrvoffset'] = src.qrvoffset >= 0 ? src.qrvoffset : 20
   dst['qrpadding'] = src.qrpadding ? src.qrpadding : '1em'
@@ -72,11 +74,37 @@ function convertData2Hexd (data) {
   return data
 }
 
+function getQrCodeOptions (size) {
+  return {
+    size: size,
+    // ecLevel: ecLevel.QUARTILE,
+    ecLevel: ecLevel.LOW,
+    minVersion: 8,
+    background: '#fff',
+    mode: modes.DRAW_WITH_IMAGE_BOX,
+    radius: 0.0,
+    image: 'https://raw.githubusercontent.com/METADIUM/metadium-token-contract/master/misc/Metadium_Logo_Vertical_PNG.png',
+    mSize: 0.15,
+  }
+}
+
+async function loadQrCode (eid, uri, qrsize, cb) {
+  // Element must be an instance of HTMLCanvasElement or HTMLDivElement
+  let element = document.getElementById(eid)
+  if (!element) return
+  // Initializing the QrCode
+  const qrCode = new qrcode(element)
+  // Function that generates the QrCode
+  qrCode.generate(uri, getQrCodeOptions(qrsize)).then(() => cb())
+}
+
 export {
   POSITIONS,
   CacheServer,
   setQRstyle,
   makeSessionID,
   convertVal2Hexd,
-  convertData2Hexd
+  convertData2Hexd,
+  getQrCodeOptions,
+  loadQrCode
 }

@@ -1,8 +1,10 @@
 # metasdk-react
 
-> SDK to communicate between React and App using QRCode
+[![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hexoul/metasdk-react/master/LICENSE)
+[![NPM](https://img.shields.io/npm/v/metasdk-react.svg)](https://www.npmjs.com/package/metasdk-react)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[![NPM](https://img.shields.io/npm/v/metasdk-react.svg)](https://www.npmjs.com/package/metasdk-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+> SDK to communicate between React and App using QRCode
 
 ## Install
 
@@ -33,12 +35,14 @@ class Example extends Component {
         <Login
           data='testmsg'
           service='example'
+          qrpopup={true}
           callback={this.callbackExample}
         />
 
         <Request
           request={['10', '20', '30']}
           usage='example'
+          qrpopup={true}
           callback={this.callbackExample}
         />
 
@@ -46,6 +50,7 @@ class Example extends Component {
           id='sendTransactionByRequest'
           request={this.trxRequest}
           usage='method'
+          qrpopup={true}
           callback={this.callbackExample}
         />
 
@@ -67,6 +72,7 @@ class Example extends Component {
           qrpadding='2em'
           qrposition='bottom right'
           qrtext='SendTransaction'
+          qrpopup={true}
           callback={this.callbackExample}
         />
       </div>
@@ -76,14 +82,15 @@ class Example extends Component {
 ```
 
 QRCode styles can be set for all components like above example `SendTransaction`
-- `qrpopup` decides if QRCode exists within popup or not
-- `qrsize` changes the size of QRCode
-- `qrvoffset` is a vertical offset from origin
-- `qrpadding` applies padding thickness of QRCode as style
-- `qrposition` decides relative position from origin, declaration for positions are in `util.js`
+- `qrpopup` decides if QRCode exists within popup or not. default: `false`
+- `qrsize` changes the size of QRCode by pixel. default: `128`
+- `qrvoffset` is a vertical offset from origin. default: `20`
+- `qrpadding` applies padding thickness of QRCode as style. default: `1em`
+- `qrposition` decides relative position from origin, declaration for positions are in `util.js`. default: `bottom right`
 - `qrtext` sets `Button` text to open QRCode popup
 
 ## Test
+
 ```
 cd metasdk-react
 npm start
@@ -91,10 +98,3 @@ npm start
 cd example
 npm start
 ```
-
-## Thanks to
-[create-react-library](https://www.npmjs.com/package/create-react-library)
-
-## License
-
-MIT © [hexoul](https://github.com/hexoul)
